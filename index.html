@@ -1,59 +1,117 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#171421">
 <title>Amigo de Merda BR</title>
 <style>
-:root{color-scheme:dark;--bg:#171421;--panel:#242033;--line:#403951;--pink:#ff5ca8;--lime:#c5ff54;--muted:#b6b0c7}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top right,#30203c 0,#171421 55%);color:#fff;font:16px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
-main{max-width:760px;margin:auto;padding:24px 16px 50px}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:25px}.logo{font-size:clamp(28px,7vw,45px);line-height:.96;font-weight:1000;letter-spacing:-2px}.pink{color:var(--pink)}.lime{color:var(--lime)}.muted{color:var(--muted)}.tiny{font-size:12px}.panel{background:rgba(36,32,51,.94);border:1px solid var(--line);border-radius:20px;padding:20px;margin:14px 0}.hero{background:linear-gradient(140deg,#42234d,#242033 70%);padding:25px}.tag{display:inline-block;background:#39304c;color:#e4d7ff;border-radius:8px;padding:5px 9px;font-size:11px;font-weight:900;letter-spacing:.5px}h1,h2,p{margin-top:0}h2{font-size:24px;letter-spacing:-.6px}.btn{display:inline-flex;justify-content:center;align-items:center;width:100%;border:0;border-radius:13px;padding:13px 15px;margin-top:10px;background:var(--lime);color:#18151e;font-weight:900;cursor:pointer}.btn.secondary{background:#302b40;color:#fff;border:1px solid #504660}.btn.pinkbtn{background:var(--pink);color:#20121a}input,textarea,select{width:100%;border:1px solid #514761;background:#171421;color:#fff;border-radius:12px;padding:13px;margin:7px 0 13px;font:inherit}label{font-size:12px;font-weight:800;color:#d1cadd;letter-spacing:.5px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.person,.item{border:1px solid #494158;background:#2c273c;border-radius:14px;padding:13px;color:white}.person{text-align:left;cursor:pointer;overflow-wrap:anywhere}.person.selected{border:2px solid var(--lime);background:#333a29}.row{display:flex;align-items:center;gap:10px}.row>*:first-child{flex:1}.item{margin-top:9px}.notice{background:#31283c;padding:12px;border-radius:12px;font-size:13px;color:#ddd5e9}.bigq{font-size:clamp(24px,5vw,35px);font-weight:950;line-height:1.13;letter-spacing:-.8px;margin:16px 0 22px}.bar{height:7px;background:#423a4f;border-radius:9px;overflow:hidden}.bar span{height:100%;display:block;background:var(--pink)}.status{font-size:12px;color:var(--muted)}.footer{text-align:center;color:#898299;font-size:12px;margin-top:26px}button:disabled{opacity:.45;cursor:not-allowed}.hidden{display:none!important}.split{display:flex;justify-content:space-between;align-items:center;gap:10px}
-@media(max-width:440px){main{padding:18px 12px 35px}.panel{padding:16px}.grid{gap:7px}.hero{padding:20px}}
+:root { color-scheme: dark; --bg: #171421; --panel: #242033; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: #fff; font-family: system-ui, sans-serif; }
+main { max-width: 760px; margin: auto; padding: 24px 16px 50px; }
+@media (max-width: 440px) { main { padding: 18px 12px 35px; } }
+.btn { background: #adff2f; color: #000; font-weight: bold; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 10px; }
+.panel { background: var(--panel); padding: 20px; border-radius: 12px; margin-bottom: 16px; }
 </style>
 </head>
-<body><main>
-<header class="top"><div><div class="logo"><span class="pink">AMIGO</span> DE<br>MERDA <span class="lime">BR.</span></div><div class="muted tiny" style="margin-top:8px">A amizade acaba. O placar fica. 💩</div></div><span class="tag">JOGO ONLINE</span></header>
-<div id="app"><section class="panel hero"><span class="tag">CHAME A TROPA</span><div style="font-size:64px;margin:15px 0">💩🤝</div><h1 style="font-size:29px;line-height:1.08">Seus amigos.<br>Suas perguntas.<br><span class="pink">Seu julgamento.</span></h1><p class="muted">Crie uma sala privada, convide a galera pelo código e descubra quem vai levar o título.</p><button class="btn" id="create">＋ CRIAR SALA</button><div style="margin-top:23px;border-top:1px solid var(--line);padding-top:17px"><label>ENTRAR COM CÓDIGO</label><input id="joinCode" placeholder="Ex.: A7K2" maxlength="8"><button class="btn secondary" id="join">ENTRAR NA SALA</button></div></section><section class="panel"><b>Como funciona?</b><p class="muted tiny" style="margin:8px 0 0">1. Crie uma sala · 2. Cada pessoa adiciona perguntas · 3. Todos votam · 4. Quem receber mais votos perde.</p></section></div>
-<div class="footer">AMIGO DE MERDA BR · JOGUE COM RESPONSABILIDADE E NA BRINCADEIRA 💚</div>
+<body>
+<main>
+  <header class="top">
+    <div class="logo"><span>AMIGO DE MERDA BR</span></div>
+  </header>
+  <div id="app">
+    <section class="panel hero">
+      <span>Carregando...</span>
+    </section>
+  </div>
+  <div class="footer">AMIGO DE MERDA BR · JOGUE COM AMIGOS</div>
 </main>
+
 <script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-const SUPABASE_URL = 'COLE_AQUI_A_URL_DO_SEU_PROJETO';
-const SUPABASE_ANON_KEY = 'COLE_AQUI_A_CHAVE_ANON_PUBLICA';
-const configured = SUPABASE_URL.startsWith('https://') && !SUPABASE_URL.includes('COLE_AQUI');
-const app=document.querySelector('#app');
-let db=null,room=null,me=null,profile=null,subscription=null,selected=null;
-const em=['😎','🤡','🫠','😈','🦆','💅','👽','🗿','🐸','💩'];
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const code=()=>Math.random().toString(36).slice(2,6).toUpperCase();
-function message(s){alert(s)}
-function btn(t,id,cls='btn'){return `<button class="btn ${cls}" id="${id}">${t}</button>`}
-function needConfig(){if(!configured){message('Para habilitar as salas entre celulares, configure o Supabase seguindo o README incluído no projeto. O site já está preparado para essa conexão.');return false}return true}
-if(configured) db=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-function home(){app.innerHTML=`<section class="panel hero"><span class="tag">CHAME A TROPA</span><div style="font-size:64px;margin:15px 0">💩🤝</div><h1 style="font-size:29px;line-height:1.08">Seus amigos.<br>Suas perguntas.<br><span class="pink">Seu julgamento.</span></h1><p class="muted">Crie uma sala privada, convide a galera pelo código e descubra quem vai levar o título.</p>${btn('＋ CRIAR SALA','create')}<div style="margin-top:23px;border-top:1px solid var(--line);padding-top:17px"><label>ENTRAR COM CÓDIGO</label><input id="joinCode" placeholder="Ex.: A7K2" maxlength="8">${btn('ENTRAR NA SALA','join','secondary')}</div></section><section class="panel"><b>Como funciona?</b><p class="muted tiny" style="margin:8px 0 0">1. Crie uma sala · 2. Cada pessoa adiciona perguntas · 3. Todos votam · 4. Quem receber mais votos perde.</p></section>`;
-document.querySelector('#create').onclick=setup;document.querySelector('#join').onclick=join}
-function setup(){app.innerHTML=`<section class="panel"><span class="tag">01 / NOVA SALA</span><h2 style="margin-top:15px">Bora jogar? 💥</h2><label>SEU NOME</label><input id="name" maxlength="24" placeholder="Como te chamam?"><label>NOME DA SALA</label><input id="roomName" maxlength="40" placeholder="Ex.: A tropa do caos"><p class="muted tiny">A sala recebe um código para compartilhar. Cada jogador entra pelo próprio celular.</p>${btn('CRIAR E CONTINUAR →','makeRoom')}${btn('VOLTAR','back','secondary')}</section>`;
-document.querySelector('#back').onclick=home;document.querySelector('#makeRoom').onclick=async()=>{if(!needConfig())return;const name=document.querySelector('#name').value.trim(),title=document.querySelector('#roomName').value.trim()||'A tropa do caos';if(!name)return message('Digite seu nome.');const c=code();const {data,error}=await db.from('rooms').insert({code:c,title,host_name:name,status:'lobby',current_question:0}).select().single();if(error)return message('Não foi possível criar a sala: '+error.message);room=data;me=crypto.randomUUID();profile={name};await db.from('players').insert({room_id:room.id,client_id:me,name,score:0});lobby();listen()};
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+// ATENÇÃO: Substitua os valores abaixo com as chaves reais do seu painel Supabase
+const SUPABASE_URL = 'COLE_AQUI_A_URL_DO_SEU_PROJETO'
+const SUPABASE_ANON_KEY = 'COLE_AQUI_A_CHAVE_ANON_PUBLICA'
+
+const configured = SUPABASE_URL.startsWith('https://') && !SUPABASE_URL.includes('COLE_AQUI')
+const app = document.querySelector('#app')
+let db = null, room = null, me = null, profile = null, subscription = null
+
+const em = ['😎','🤡','🤠','😈','🦆','🎉','👽','🗿','🦁','🦊']
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))
+const code = () => Math.random().toString(36).slice(2, 6).toUpperCase()
+
+function message(s) { alert(s) }
+function btn(t, id, cls='btn') { return `<button class="${cls}" id="${id}">${t}</button>` }
+
+function needConfig() {
+  if (!configured) {
+    message('Por favor, configure as chaves do Supabase no ficheiro index.html.')
+    return true
+  }
+  return false
 }
-async function join(){if(!needConfig())return;const c=document.querySelector('#joinCode')?.value.trim().toUpperCase();if(!c)return message('Digite o código da sala.');const {data:r,error}=await db.from('rooms').select('*').eq('code',c).maybeSingle();if(error||!r)return message('Sala não encontrada. Confira o código.');if(r.status==='finished')return message('Essa partida já terminou.');room=r;app.innerHTML=`<section class="panel"><h2>Entrar na sala ${esc(c)}</h2><label>SEU NOME</label><input id="joinName" maxlength="24" placeholder="Como te chamam?">${btn('ENTRAR NA PARTIDA','enter')}${btn('VOLTAR','back','secondary')}</section>`;document.querySelector('#back').onclick=home;document.querySelector('#enter').onclick=async()=>{const name=document.querySelector('#joinName').value.trim();if(!name)return message('Digite seu nome.');const {data:existing}=await db.from('players').select('name').eq('room_id',room.id);if((existing||[]).some(p=>p.name.toLowerCase()===name.toLowerCase()))return message('Esse nome já está sendo usado.');me=crypto.randomUUID();profile={name};const {error}=await db.from('players').insert({room_id:room.id,client_id:me,name,score:0});if(error)return message(error.message);lobby();listen()};
-function listen(){if(subscription)db.removeChannel(subscription);subscription=db.channel('room-'+room.id).on('postgres_changes',{event:'*',schema:'public',table:'players',filter:'room_id=eq.'+room.id},()=>{if(room.status==='lobby')lobby()}).on('postgres_changes',{event:'*',schema:'public',table:'questions',filter:'room_id=eq.'+room.id},()=>refresh()).on('postgres_changes',{event:'*',schema:'public',table:'rooms',filter:'id=eq.'+room.id},async p=>{room=p.new;await refresh()}).on('postgres_changes',{event:'*',schema:'public',table:'votes',filter:'room_id=eq.'+room.id},()=>refresh()).subscribe()}
-async function getPlayers(){const {data}=await db.from('players').select('*').eq('room_id',room.id).order('created_at');return data||[]}
-async function getQuestions(){const {data}=await db.from('questions').select('*').eq('room_id',room.id).order('created_at');return data||[]}
-async function lobby(){const ps=await getPlayers(),qs=await getQuestions();const isHost=profile?.name===room.host_name;app.innerHTML=`<section class="panel"><div class="split"><span class="tag">SALA PRIVADA</span><button id="copy" class="btn secondary" style="width:auto;margin:0">COPIAR CÓDIGO</button></div><div style="font-size:42px;font-weight:1000;letter-spacing:5px;color:var(--lime);margin-top:12px">${esc(room.code)}</div><h2>${esc(room.title)}</h2><p class="muted tiny">Compartilhe o código com seus amigos para eles entrarem no próprio celular.</p><div class="split"><b>Jogadores</b><span class="tag">${ps.length}</span></div>${ps.map((p,i)=>`<div class="item row"><span style="font-size:25px">${em[i%em.length]}</span><b>${esc(p.name)} ${p.name===room.host_name?'👑':''}</b><span class="status">${p.client_id===me?'Você':''}</span></div>`).join('')}<h2 style="margin-top:24px">Perguntas da galera ✍️</h2><label>ESCREVA UMA PERGUNTA</label><textarea id="qtext" maxlength="180" rows="3" placeholder="Quem é mais provável de..."></textarea>${btn('＋ ADICIONAR PERGUNTA','addQ')}<div id="qlist">${qs.map(q=>`<div class="item"><div class="tiny muted">POR ${esc(q.author_name)}</div><b>${esc(q.text)}</b></div>`).join('')}</div><div class="notice" style="margin-top:15px">Cada jogador pode escrever várias perguntas. O anfitrião inicia quando a turma estiver pronta.</div>${isHost?btn('COMEÇAR PARTIDA →','start'): '<p class="muted tiny">Esperando o anfitrião começar a partida…</p>'}</section>`;
-document.querySelector('#copy').onclick=async()=>{try{await navigator.clipboard.writeText(room.code);message('Código copiado: '+room.code)}catch{message('Código da sala: '+room.code)}};
-document.querySelector('#addQ').onclick=async()=>{const text=document.querySelector('#qtext').value.trim();if(!text)return message('Escreva a pergunta.');const {error}=await db.from('questions').insert({room_id:room.id,author_id:me,author_name:profile.name,text});if(error)return message(error.message);document.querySelector('#qtext').value='';lobby()};
-if(isHost)document.querySelector('#start').onclick=async()=>{if(ps.length<3)return message('São necessários pelo menos 3 jogadores.');if(qs.length<1)return message('Adicione pelo menos uma pergunta.');await db.from('rooms').update({status:'playing',current_question:0}).eq('id',room.id);room.status='playing';play()};
+
+if (configured) {
+  db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 }
-async function refresh(){if(!room)return;if(room.status==='lobby')return lobby();if(room.status==='playing')return play();if(room.status==='finished')return results()}
-async function play(){const [ps,qs]=await Promise.all([getPlayers(),getQuestions()]);if(!qs.length)return;const q=qs[Math.min(room.current_question,qs.length-1)];const {data:mine}=await db.from('votes').select('id').eq('room_id',room.id).eq('question_id',q.id).eq('voter_id',me).maybeSingle();const {data:allVotes}=await db.from('votes').select('question_id,voted_for').eq('room_id',room.id);const {data:allPlayers}=await db.from('players').select('id,name,client_id,score').eq('room_id',room.id);const already=!!mine;const currentIndex=room.current_question;const {data:countVotes}=await db.from('votes').select('id').eq('room_id',room.id).eq('question_id',q.id);const done=countVotes?.length||0;
-app.innerHTML=`<section class="panel"><div class="split"><span class="tag">SALA ${esc(room.code)}</span><span class="muted tiny">PERGUNTA ${currentIndex+1}/${qs.length}</span></div><div class="bar" style="margin-top:13px"><span style="width:${(currentIndex+1)/qs.length*100}%;background:var(--lime)"></span></div><p class="muted tiny" style="margin-top:20px">PERGUNTA DE ${esc(q.author_name).toUpperCase()}</p><div class="bigq">${esc(q.text)}</div>${already?`<div class="notice">✅ Seu voto foi registrado!<br>Esperando os outros jogadores votarem… <b>${done}/${ps.length}</b></div>`:`<p class="muted tiny">Escolha um amigo. Seu voto fica secreto até o resultado.</p><div class="grid">${allPlayers.filter(p=>p.client_id!==me).map((p,i)=>`<button class="person ${selected===p.id?'selected':''}" data-pid="${p.id}"><div style="font-size:27px">${em[i%em.length]}</div><b>${esc(p.name)}</b><div class="tiny muted">${selected===p.id?'✓ Selecionado':'Votar nele'}</div></button>`).join('')}</div>${btn('CONFIRMAR VOTO','cast')}`}<div class="notice" style="margin-top:17px">Votos recebidos nesta pergunta: ${done}/${ps.length}</div>${profile.name===room.host_name?btn('AVANÇAR PARA PRÓXIMA →','advance','secondary'):''}</section>`;
-app.querySelectorAll('[data-pid]').forEach(el=>el.onclick=()=>{selected=el.dataset.pid;play()});
-const cast=document.querySelector('#cast');if(cast)cast.onclick=async()=>{if(!selected)return message('Escolha um jogador.');const {error}=await db.from('votes').insert({room_id:room.id,question_id:q.id,voter_id:me,voted_for:selected});if(error)return message('Seu voto não foi registrado. '+error.message);selected=null;play()};
-const adv=document.querySelector('#advance');if(adv)adv.onclick=async()=>{const {data:latest}=await db.from('rooms').select('*').eq('id',room.id).single();if(latest.current_question<qs.length-1){await db.from('rooms').update({current_question:latest.current_question+1}).eq('id',room.id)}else{await db.from('rooms').update({status:'finished'}).eq('id',room.id)}};
+
+function home() {
+  app.innerHTML = `
+    <section class="panel hero">
+      <h2>Seus amigos. Suas perguntas. Seu julgamento.</h2>
+      <p>Crie uma sala privada, convide a galera pelo código e descubra quem vai levar o título.</p>
+      ${btn('CRIAR SALA', 'create')}
+      <div style="margin-top:20px;">
+        <input type="text" id="roomCode" placeholder="CÓDIGO DA SALA" style="width:100%; padding:10px; border-radius:6px; border:none; text-transform:uppercase;">
+        ${btn('ENTRAR NA SALA', 'join')}
+      </div>
+    </section>
+  `
+  
+  const createBtn = document.querySelector('#create')
+  if (createBtn) {
+    createBtn.onclick = () => {
+      if (needConfig()) return
+      setup()
+    }
+  }
+
+  const joinBtn = document.querySelector('#join')
+  if (joinBtn) {
+    joinBtn.onclick = () => {
+      if (needConfig()) return
+      const inputCode = document.querySelector('#roomCode').value.trim().toUpperCase()
+      if (!inputCode) return message('Digite o código da sala!')
+      joinRoom(inputCode)
+    }
+  }
 }
-async function results(){const [ps,qs]=await Promise.all([getPlayers(),getQuestions()]);const {data:vs}=await db.from('votes').select('voted_for').eq('room_id',room.id);const counts={};ps.forEach(p=>counts[p.id]=0);(vs||[]).forEach(v=>{counts[v.voted_for]=(counts[v.voted_for]||0)+1});const ranked=[...ps].sort((a,b)=>(counts[b.id]||0)-(counts[a.id]||0));const top=counts[ranked[0]?.id]||0;app.innerHTML=`<section class="panel" style="text-align:center;background:linear-gradient(140deg,#42234d,#242033)"><div style="font-size:66px">🏆💩</div><span class="tag">FIM DE JOGO</span><h1 style="font-size:34px;line-height:1.05">O AMIGO DE<br><span class="pink">MERDA BR</span></h1><p class="muted">A votação terminou. O placar não mente.</p><div style="background:var(--lime);color:#171421;border-radius:16px;padding:20px;margin-top:18px"><div class="tiny" style="font-weight:900">TÍTULO DA PARTIDA</div><div style="font-size:30px;font-weight:1000;margin:8px 0">${ranked.filter(p=>(counts[p.id]||0)===top).map(p=>esc(p.name)).join(' & ')}</div><b>${top} ${top===1?'voto recebido':'votos recebidos'}</b><div class="tiny">${ranked.filter(p=>(counts[p.id]||0)===top).length>1?'Empate no topo!':'Parabéns? Talvez não.'}</div></div></section><section class="panel"><h2>📊 Placar geral</h2>${ranked.map((p,i)=>`<div class="item row"><span style="font-size:25px">${i===0?'💩':em[i%em.length]}</span><div><b>${i+1}. ${esc(p.name)}</b><div class="bar" style="margin-top:6px"><span style="width:${top?(counts[p.id]||0)/top*100:0}%"></span></div></div><b>${counts[p.id]||0}</b></div>`).join('')}<p class="muted tiny" style="margin-top:13px">${qs.length} perguntas · ${vs?.length||0} votos registrados.</p>${profile.name===room.host_name?btn('NOVA PARTIDA','again'):''}</section>`;
-const again=document.querySelector('#again');if(again)again.onclick=async()=>{await db.from('votes').delete().eq('room_id',room.id);await db.from('questions').delete().eq('room_id',room.id);await db.from('rooms').update({status:'lobby',current_question:0}).eq('id',room.id);room.status='lobby';lobby()};
+
+function setup() {
+  app.innerHTML = `
+    <section class="panel">
+      <h3>Criar Nova Sala</h3>
+      <p>A carregar configuração de sala...</p>
+      ${btn('VOLTAR', 'back')}
+    </section>
+  `
+  const backBtn = document.querySelector('#back')
+  if (backBtn) backBtn.onclick = () => home()
 }
-home();
+
+async function joinRoom(roomCode) {
+  app.innerHTML = `
+    <section class="panel">
+      <h3>Entrando na sala ${esc(roomCode)}...</h3>
+    </section>
+  `
+}
+
+// Inicializa a interface inicial
+home()
 </script>
-</body></html>
+</body>
+</html>
